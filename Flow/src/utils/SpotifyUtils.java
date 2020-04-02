@@ -9,17 +9,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class SpotifyUtils {
-    /*private String getCurrentTrack()
-    {
-        try {
-            Process p = Runtime.getRuntime().exec(new String[]{"bash","-c","curl -X \"GET\" \"https://api.spotify.com/v1/me/player\" -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer BQD__piGKeISRqq13e3-xrdQ4CMTXEo2FLjNHB-Ur7dMGo09iIm5GPMxI5DUxMLkqIinXlY5ZkZ6s6zUerTmkMR4JhOx7kGRzLEQOxHTX-fO2JupttUe94GVBxq55P7MbuUTjeFFx-JfQo9nMBaB1IE56eMyLUkwyfAae0aMIkoZty1FbLjl-ocnuRzoSMNMf5tS_IDCK5uyVbv5hTLa5dxVaaMS_kCaX1x987I0jg1hdRppQst4ev-6uLp-HeGJhkJbntMr-i5F81dEhX8ba_pKKmdg-p-gHw\""});
-            return procToString(p);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }*/
     public static BufferedImage getArtworkImage()
     {
         try {
@@ -29,7 +18,7 @@ public class SpotifyUtils {
         }
         return null;
     }
-    public static boolean single()
+    public static boolean isSingle()
     {
         String str = getTrackInfo();
         assert str != null;
@@ -134,7 +123,7 @@ public class SpotifyUtils {
         }
 
     }
-    public static double playerPosition()
+    public static double getPlayerPosition()
     {
         try {
            return Double.parseDouble(MacOSUtils.runAppleScript("tell application \"Spotify\"\n" +
@@ -155,7 +144,7 @@ public class SpotifyUtils {
             e.printStackTrace();
         }
     }
-    public static int duration()
+    public static int getDuration()
     {
         try {
             return Integer.parseInt(MacOSUtils.runAppleScript("tell application \"Spotify\"\n" +
@@ -166,13 +155,13 @@ public class SpotifyUtils {
         }
         return 0;
     }
-    public static boolean playing()
+    public static boolean isPlaying()
     {
         try {
            String str =  MacOSUtils.runAppleScript("tell application \"Spotify\"\n" +
                     "\treturn player state\n" +
                     "end tell").trim();
-           if(str.equals("playing"))
+           if(str.startsWith("pl"))
                 return true;
         } catch (IOException e) {
             e.printStackTrace();
